@@ -17,7 +17,7 @@ exports.deleteNewUser = functions.auth.user().onCreate(user => {
 
 exports.resetTodos = functions.pubsub
   .schedule("0 0 * * *") //daily at midnight
-  //.schedule("every 30 seconds")
+  //.schedule("every 1 minutes")
   .timeZone("Australia/Sydney") //change to your timezone
   .onRun(context => {
     let todosRef = admin.firestore().collection("todos");

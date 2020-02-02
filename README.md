@@ -8,7 +8,7 @@ The ultimate act of procrastination: building a custom personal todos/goals dash
 
 * Login with Google auth to accept only _your_ Gsuite/Gmail email.
 * Add, [sort/drag](https://github.com/solidsnail/svelte-sortablejs), mark complete, delete and group todos.
-* Lightweight PWA app less than ~500KB.
+* Lightweight PWA app less than ~500KB (only tested on Android).
 * Firestore realtime database using [RxFire](https://github.com/firebase/firebase-js-sdk/tree/master/packages/rxfire).
 * Firebase function resets todos daily at midnight.
 * Repeat a todo: "r name of todo [optional # days to repeat]".
@@ -40,13 +40,15 @@ var firebaseConfig = {
 };
 ```
 
-3. In the Firebase console go to `Authentication` in the sidebar, select `Sign-in method` tab and enable `Google`.
+3. In the Firebase console go to `Authentication` in the sidebar, select `Set up sign-in method` tab and enable `Google`.
 
 4. Go to `Database` in the sidebar, create a new Firestore database, then start a new `todos` collection. Click `Auto-ID`, save, then delete that document. Eventually the fields will look like this:
 
 ![Firestore Fields](/docs/img/fields.png)
 
-5. Add your Firebase project ID into `functions/.firebaserc`:
+5. Upgrade your Firebase project plan to `Blaze`. This is required for scheduled functions: USD$0.10 per month.
+
+6. Add your Firebase project ID into `functions/.firebaserc`:
 
 ```js
 {
@@ -56,7 +58,7 @@ var firebaseConfig = {
 }
 ```
 
-6. Add your email in `functions/firestore.rules`:
+7. Add your email in `functions/firestore.rules`:
 
 ```js
 rules_version = '2';
@@ -69,44 +71,46 @@ service cloud.firestore {
 }
 ```
 
-7. Add your email in `functions/index.js`
+8. Add your email in `functions/index.js`
 
 ```js
 if (user.email === "[YOUR_EMAIL_HERE]") return null;
 ```
 
-8. Also add your timezone
+9. Also add your timezone
 
 ```js
 .timeZone("Australia/Sydney") //change to your timezone
 ```
 
-9. Open a terminal and install dependencies
+10. Open a terminal and install dependencies
 
 ```bash
 cd svelte-sortable-firebase-todo/functions
 npm install
 ```
 
-10. Install the [Firebase CLI](https://firebaseopensource.com/projects/firebase/firebase-tools/)
+11. Install the [Firebase CLI](https://firebaseopensource.com/projects/firebase/firebase-tools/)
 
 ```bash
 npm install -g firebase-tools
 ```
 
-11. Login to Firebase
+12. Login to Firebase
 
 ```bash
 firebase login
 ```
 
-12. Deploy to Firebase
+13. Deploy to Firebase
 
 ```bash
 firebase deploy
 ```
 
-13. In the Firebase console you should see the two functions listed under `Functions` in the sidebar. Also you should see the `Rules` and `Indexes` tabs within `Database` have been updated.
+14. In the Firebase console you should see the two functions listed under `Functions` in the sidebar. Also you should see the `Rules` and `Indexes` tabs within `Database` have been updated.
+
+15. You'll need to wait a few minutes for the index to be built.
 
 ## Fire It Up
 

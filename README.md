@@ -11,8 +11,8 @@ The ultimate act of procrastination: building a custom personal todos/goals dash
 * Lightweight PWA app less than ~500KB (half-arsed, only tested on Android).
 * Firestore realtime database using [RxFire](https://github.com/firebase/firebase-js-sdk/tree/master/packages/rxfire).
 * Firebase function resets todos daily at midnight.
-* Repeat a todo: "r name of todo [optional # days to repeat]".
-* Toggle a todo: "t todo one OR todo two".
+* Repeat a todo: `r repeat me daily` or `r repeat me every other day 2`.
+* Toggle a todo: `t dig a hole OR fill the hole`.
 
 Heavily modified from this tutorial: https://fireship.io/lessons/svelte-v3-overview-firebase
 

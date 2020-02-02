@@ -84,7 +84,7 @@
     overflow: hidden;
   }
   .todolist > :global(.svelte-sortable) {
-    min-height: 100px;
+    min-height: 50px;
   }
   .input {
     margin-bottom: 15px;
@@ -92,6 +92,9 @@
     font-weight: 600;
   }
   @media screen and (min-width: 769px) {
+    .todolist > :global(.svelte-sortable) {
+      min-height: 60px;
+    }
     .input {
       height: 60px;
       margin-bottom: 20px;
@@ -104,7 +107,7 @@
     <input
       type="text"
       bind:value={text}
-      placeholder="What's next?"
+      placeholder="What's next mate?"
       class="input is-size-6-mobile is-size-5-tablet" />
   </form>
 {/if}

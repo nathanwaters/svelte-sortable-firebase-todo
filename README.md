@@ -2,6 +2,8 @@
 
 The ultimate act of procrastination: building a custom personal todos/goals dashboard! 🤨
 
+![Todos App](/docs/img/app.png)
+
 ## Features
 
 * Login with Google auth to accept only _your_ Gsuite/Gmail email.
@@ -18,7 +20,13 @@ There are room for improvements everywhere and I won't be supporting or updating
 
 ## Initial Setup
 
-1. Create a new [Firebase](https://console.firebase.google.com/) project, and copy your credentials into `src/firebase.js`
+1. Add your email in `src/App.svelte`
+
+```js
+{#if user && user.email === '[YOUR_EMAIL_HERE]'}
+```
+
+2. Create a new [Firebase](https://console.firebase.google.com/) project, then create a new web app and copy your credentials into `src/firebase.js`
 
 ```js
 var firebaseConfig = {
@@ -32,13 +40,23 @@ var firebaseConfig = {
 };
 ```
 
-2. In the Firebase console go to `Authentication` in the sidebar, select `Sign-in method` tab and enable `Google`.
+3. In the Firebase console go to `Authentication` in the sidebar, select `Sign-in method` tab and enable `Google`.
 
-3. Go to `Database` in the sidebar, create a new Firestore database with a `todos` collection. The fields will eventually look like this:
+4. Go to `Database` in the sidebar, create a new Firestore database, then start a new `todos` collection. Click `Auto-ID`, save, then delete that document. Eventually the fields will look like this:
 
 ![Firestore Fields](/docs/img/fields.png)
 
-4. In the `Rules` tab, copy this in:
+5. Add your Firebase project ID into `functions/.firebaserc`:
+
+```js
+{
+  "projects": {
+    "default": "[YOUR_FIREBASE_PROJECT_ID]"
+  }
+}
+```
+
+6. Add your email in `functions/firestore.rules`:
 
 ```js
 rules_version = '2';
@@ -51,15 +69,44 @@ service cloud.firestore {
 }
 ```
 
-5. In the `Indexes` tab create a new composite index like so:
-
-![Firestore Index](/docs/img/index.png)
-
-6. Add your email in `src/App.svelte`
+7. Add your email in `functions/index.js`
 
 ```js
-{#if user && user.email === '[YOUR_EMAIL_HERE]'}
+if (user.email === "[YOUR_EMAIL_HERE]") return null;
 ```
+
+8. Also add your timezone
+
+```js
+.timeZone("Australia/Sydney") //change to your timezone
+```
+
+9. Open a terminal and install dependencies
+
+```bash
+cd svelte-sortable-firebase-todo/functions
+npm install
+```
+
+10. Install the [Firebase CLI](https://firebaseopensource.com/projects/firebase/firebase-tools/)
+
+```bash
+npm install -g firebase-tools
+```
+
+11. Login to Firebase
+
+```bash
+firebase login
+```
+
+12. Deploy to Firebase
+
+```bash
+firebase deploy
+```
+
+13. In the Firebase console you should see the two functions listed under `Functions` in the sidebar. Also you should see the `Rules` and `Indexes` tabs within `Database` have been updated.
 
 ## Fire It Up
 
@@ -78,60 +125,11 @@ npm run dev
 
 3. Navigate to [localhost:5000](http://localhost:5000)
 
-4. See if you can login and add/drag/delete todos.
+4. See if you can login (click the 😮) and add/drag/delete todos. Hold down to start drag.
 
-5. Oh gawd, oh no, plz no, why, why, just why 😱
+5. "Oh gawd, oh no, plz no, why, why, just why" 😱
 
 6. If it doesn't work, check the console. Could be a domain whitelist issue in Firebase.
-
-## Setup Firebase Functions
-
-There are two [Firebase cloud functions](https://firebase.google.com/docs/functions/get-started): one that removes any new user registrations that aren't you, and one that resets the todos daily at midnight.
-
-1. Add your email in `functions/index.js`
-
-```js
-if (user.email === "[YOUR_EMAIL_HERE]") return null;
-```
-
-2. Also add your timezone
-
-```js
-.timeZone("Australia/Sydney") //change to your timezone
-```
-
-3. Open a terminal and install dependencies
-
-```bash
-cd svelte-sortable-firebase-todo/functions
-npm install
-```
-
-4. Install the [Firebase CLI](https://firebaseopensource.com/projects/firebase/firebase-tools/)
-
-```bash
-npm install -g firebase-tools
-```
-
-4. Login and deploy
-
-```bash
-firebase login
-```
-
-```bash
-firebase deploy --only functions
-```
-
-5. In the Firebase console you should see the two functions listed under `Functions` in the sidebar.
-
-6. To test this all works: try login with a different email address. The user should be created and then automatically deleted under `Authentication` in the Firebase console.
-
-7. Also uncomment this line and redeploy the functions to test todo reset every 30 seconds:
-
-```js
-.schedule("every 30 seconds")
-```
 
 ## Deploying To The Web
 

@@ -133,20 +133,7 @@ npm run dev
 
 ## Deploying To The Web
 
-### With [netlify](https://www.netlify.com)
-
-Install `netlify` if you haven't already:
-
-```bash
-npm install netlify-cli -g
-```
-
-Then, from within your project folder:
-
-```bash
-npm run build
-netlify deploy
-```
+** Note: be sure to add the domain to the whitelist in Firebase console and/or [Google Cloud console](https://console.cloud.google.com/apis/credentials).
 
 ### With [now](https://zeit.co/now)
 
@@ -159,7 +146,7 @@ npm install -g now
 Then, from within your project folder:
 
 ```bash
-cd public
+npm run build
 now deploy --name my-project
 ```
 

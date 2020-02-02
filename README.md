@@ -8,7 +8,7 @@ The ultimate act of procrastination: building a custom personal todos/goals dash
 
 * Login with Google auth to accept only _your_ Gsuite/Gmail email.
 * Add, [sort/drag](https://github.com/solidsnail/svelte-sortablejs), mark complete, delete and group todos.
-* Lightweight PWA app less than ~500KB (only tested on Android).
+* Lightweight PWA app less than ~500KB (half-arsed, only tested on Android).
 * Firestore realtime database using [RxFire](https://github.com/firebase/firebase-js-sdk/tree/master/packages/rxfire).
 * Firebase function resets todos daily at midnight.
 * Repeat a todo: "r name of todo [optional # days to repeat]".
@@ -48,17 +48,7 @@ var firebaseConfig = {
 
 5. Upgrade your Firebase project plan to `Blaze`. This is required for scheduled functions: USD$0.10 per month.
 
-6. Add your Firebase project ID into `functions/.firebaserc`:
-
-```js
-{
-  "projects": {
-    "default": "[YOUR_FIREBASE_PROJECT_ID]"
-  }
-}
-```
-
-7. Add your email in `functions/firestore.rules`:
+6. Add your email in `functions/firestore.rules`:
 
 ```js
 rules_version = '2';
@@ -71,35 +61,41 @@ service cloud.firestore {
 }
 ```
 
-8. Add your email in `functions/index.js`
+7. Add your email in `functions/index.js`
 
 ```js
 if (user.email === "[YOUR_EMAIL_HERE]") return null;
 ```
 
-9. Also add your timezone
+8. Also configure your timezone
 
 ```js
 .timeZone("Australia/Sydney") //change to your timezone
 ```
 
-10. Open a terminal and install dependencies
+9. Open a terminal and install dependencies
 
 ```bash
 cd svelte-sortable-firebase-todo/functions
 npm install
 ```
 
-11. Install the [Firebase CLI](https://firebaseopensource.com/projects/firebase/firebase-tools/)
+10. Install the [Firebase CLI](https://firebaseopensource.com/projects/firebase/firebase-tools/)
 
 ```bash
 npm install -g firebase-tools
 ```
 
-12. Login to Firebase
+11. Login to Firebase
 
 ```bash
 firebase login
+```
+
+12. Select the active Firebase project
+
+```bash
+firebase use --add
 ```
 
 13. Deploy to Firebase

@@ -9,10 +9,10 @@ The ultimate act of procrastination: building a custom personal todos/goals dash
 * Login with Google auth to accept only _your_ Gsuite/Gmail email.
 * Add, [sort/drag](https://github.com/solidsnail/svelte-sortablejs), mark complete, delete and group todos.
 * Sortable works on mobile (rarity in Svelteland).
-* Lightweight PWA app less than ~500KB (half-arsed, only tested on Android).
+* Lightweight PWA app (half-arsed, only tested on Android).
 * Firestore realtime database using [RxFire](https://github.com/firebase/firebase-js-sdk/tree/master/packages/rxfire).
 * Firebase function resets todos daily at midnight.
-* Repeat a todo: `r repeat me daily` or `r repeat me every other day 2`.
+* Repeat a todo: `r repeat me daily` or `r show me every other day 2`.
 * Toggle a todo: `t dig a hole OR fill the hole`.
 
 Heavily modified from this tutorial: https://fireship.io/lessons/svelte-v3-overview-firebase

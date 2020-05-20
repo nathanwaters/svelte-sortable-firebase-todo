@@ -23,7 +23,7 @@
   function add() {
     let extra = [];
     let type = (() => {
-      switch (text.substr(0, 2)) {
+      switch (text.toLowerCase().substr(0, 2)) {
         case "r ":
           let repeatMatch = text.match(/(.*)(\d+$)/);
           let repeatPeriod = repeatMatch ? repeatMatch[2] : 1;
